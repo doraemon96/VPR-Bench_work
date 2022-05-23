@@ -10,7 +10,7 @@ from evaluate_vpr_techniques import evaluate_vpr_techniques
 from performance_comparison import performance_comparison
 from perform_vpr_invariance_analysis import perform_vpr_invariance_analysis, perform_vpr_viewpointinvariance_analysis_validation, perform_vpr_illuminationinvariance_analysis_validation      
         
-def exec_eval_mode(VPR_evaluation_mode, dataset_name, img_extension, dataset_directory,precomputed_directory,VPR_techniques, save_descriptors, scale_percent):
+def exec_eval_mode(VPR_evaluation_mode, dataset_name, dataset_directory, img_extension, precomputed_directory,VPR_techniques, save_descriptors, scale_percent):
         
     if (VPR_evaluation_mode==0): #Evaluate VPR techniques on a given dataset for AUC, PCU, EP, RMF, RecallRate and others.
         print('Evaluation Mode 0')
