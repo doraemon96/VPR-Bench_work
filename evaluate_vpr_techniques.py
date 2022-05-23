@@ -12,7 +12,7 @@ import os
 import glob
 import numpy as np
 
-def evaluate_vpr_techniques(dataset_dir,precomputed_directory,techniques, save_descriptors, scale_percent=100):
+def evaluate_vpr_techniques(dataset_dir, img_ext, precomputed_directory, techniques, save_descriptors, scale_percent=100):
     
     everything_precomputed=1 
     for vpr_tech in techniques:
@@ -24,8 +24,8 @@ def evaluate_vpr_techniques(dataset_dir,precomputed_directory,techniques, save_d
         ref_dir=dataset_dir+'ref/' #Creating path of ref directory as per the template proposed in our work.
     
         ref_images_list=[]    
-        ref_images_names=[os.path.basename(x) for x in glob.glob(ref_dir+'*.jpg')]  
-        query_images_names=[os.path.basename(x) for x in glob.glob(query_dir+'*.jpg')]
+        ref_images_names=[os.path.basename(x) for x in glob.glob(ref_dir+'*.'+img_ext)]  
+        query_images_names=[os.path.basename(x) for x in glob.glob(query_dir+'*.'+img_ext)]
     
         for image_name in sorted(ref_images_names,key=lambda x:int(x.split(".")[0])):  #Reading all the reference images into a list
             print('Reading Image: ' + ref_dir+image_name)
