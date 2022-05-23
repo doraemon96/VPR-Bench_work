@@ -59,7 +59,7 @@ save_matching_info=1 # If save_matching_info=0, save matching info in 'vpr_preco
 scale_percent=100 # Provision for resizing (with aspect-ratio maintained) of query and reference images between 0-100%. 100% is equivalent to NO resizing.
     
 def main():     
-   exec_eval_mode(VPR_evaluation_mode, dataset_name, vpr_dataset_directory, vpr_precomputed_matches_directory, VPR_techniques, save_matching_info, scale_percent, vpr_dataset_imgextension)
+   exec_eval_mode(VPR_evaluation_mode, dataset_name, vpr_dataset_directory, vpr_dataset_imgextension, vpr_precomputed_matches_directory, VPR_techniques, save_matching_info, scale_percent)
      
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
