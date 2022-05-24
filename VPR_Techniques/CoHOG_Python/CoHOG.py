@@ -136,9 +136,9 @@ def compute_map_features(ref_map):  #ref_map is a 1D list of images in this case
     "OUTPUT: Feature descriptors of all reference images to be matched." 
     ref_desc=[]
     
-    for ref in range(len(ref_map)):
+    for ref in ref_map:
             
-        img_1 = cv2.cvtColor(ref_map[ref], cv2.COLOR_BGR2GRAY)
+        img_1 = cv2.cvtColor(ref, cv2.COLOR_BGR2GRAY)
     
         if (img_1 is not None):
             

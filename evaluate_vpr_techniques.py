@@ -23,27 +23,26 @@ def evaluate_vpr_techniques(dataset_dir, img_ext, precomputed_directory, techniq
         query_dir=dataset_dir+'query/' #Creating path of query directory as per the template proposed in our work.
         ref_dir=dataset_dir+'ref/' #Creating path of ref directory as per the template proposed in our work.
     
-        ref_images_list=[]    
         ref_images_names=[os.path.basename(x) for x in glob.glob(ref_dir+'*.'+img_ext)]  
         query_images_names=[os.path.basename(x) for x in glob.glob(query_dir+'*.'+img_ext)]
-    
-        for image_name in sorted(ref_images_names,key=lambda x:int(x.split(".")[0])):  #Reading all the reference images into a list
-            print('Reading Image: ' + ref_dir+image_name)
-            ref_image=cv2.imread(ref_dir+image_name)
-            if (ref_image is not None):
-                ################### Optional Resize Provision ###################
-#                scale_percent = 100 # percent of original size
-                width = int(ref_image.shape[1] * scale_percent / 100)
-                height = int(ref_image.shape[0] * scale_percent / 100)
-                dim = (width, height)
-                # resize image
-                ref_image = cv2.resize(ref_image, dim, interpolation = cv2.INTER_AREA)
-                #####################################################
-                ref_images_list.append(ref_image)
-                print(ref_image.shape[1],ref_image.shape[0])
-                ref_image=None
-            else:
-                print(ref_dir+image_name+' not a valid image!')
+
+#         for image_name in sorted(ref_images_names,key=lambda x:int(x.split(".")[0])):  #Reading all the reference images into a list
+#             print('Reading Image: ' + ref_dir+image_name)
+#             ref_image=cv2.imread(ref_dir+image_name)
+#             if (ref_image is not None):
+#                 ################### Optional Resize Provision ###################
+# #                scale_percent = 100 # percent of original size
+#                 width = int(ref_image.shape[1] * scale_percent / 100)
+#                 height = int(ref_image.shape[0] * scale_percent / 100)
+#                 dim = (width, height)
+#                 # resize image
+#                 ref_image = cv2.resize(ref_image, dim, interpolation = cv2.INTER_AREA)
+#                 #####################################################
+#                 ref_images_list.append(ref_image)
+#                 print(ref_image.shape[1],ref_image.shape[0])
+#                 ref_image=None
+#             else:
+#                 print(ref_dir+image_name+' not a valid image!')
             
     query_indices_dict={}
     matching_indices_dict={}
@@ -61,6 +60,12 @@ def evaluate_vpr_techniques(dataset_dir, img_ext, precomputed_directory, techniq
         matching_time=0        
         all_retrievedindices_scores_allqueries=[]
         print(vpr_tech)
+
+        ref_images_names_sorted = sorted(ref_images_names,key=lambda x:int(x.split(".")[0]))
+        ref_images_list = (
+            cv2.imread(ref_dir + image_name) for image_name in ref_images_names_sorted
+        )
+        # ^ PATCHED: assumes all images exist but loads images on-demand
         
         if (vpr_tech.find('Precomputed')==-1):
             ref_images_desc= compute_image_descriptors(ref_images_list, vpr_tech) #Compute descriptors of all reference images for the VPR technique.
